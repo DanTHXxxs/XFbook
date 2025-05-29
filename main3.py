@@ -94,7 +94,7 @@ class ChapterRangeSelect(discord.ui.Select):
             end = min(i + 19, total_chapters)
             options.append(discord.SelectOption(label=f"ตอนที่ {i}–{end}", value=f"{i}-{end}"))
 
-        super().__init__(placeholder="เลือกช่วงตอน...", options=options)
+        super().__init__(placeholder="เลือกตอน", options=options)
 
     async def callback(self, interaction: discord.Interaction):
         start, end = map(int, self.values[0].split('-'))
@@ -159,7 +159,7 @@ class TitleDropdown(discord.ui.Select):
             base_url=info['link'],
             total_chapters=info['chapters']
         ))
-        await interaction.response.send_message(f"เลือกช่วงตอนของ **{title}**:", view=view, ephemeral=True)
+        await interaction.response.send_message(f"เลือกตอนของ **{title}**", view=view, ephemeral=True)
 
 
 class TypeDropdown(discord.ui.Select):
@@ -169,7 +169,7 @@ class TypeDropdown(discord.ui.Select):
             discord.SelectOption(label="มังงะ | Manga"),
             discord.SelectOption(label="ไลน์โนเวล | Light Novel")
         ]
-        super().__init__(placeholder="เลือกประเภท...", options=options)
+        super().__init__(placeholder="เลือกอ่าน", options=options)
 
     async def callback(self, interaction: discord.Interaction):
         view = discord.ui.View(timeout=None)
@@ -189,7 +189,7 @@ class DropdownStart(discord.ui.View):
 @bot.command()
 async def test(ctx):
     try:
-        await ctx.send("เลือกประเภทที่คุณต้องการ:", view=DropdownStart(user=ctx.author))
+        await ctx.send("เลือกเรื่องที่จะอ่าน (มังงะ / ไลน์โนเวล , แปลไทยทุกเรื่อง):", view=DropdownStart(user=ctx.author))
     except Exception as e:
         await ctx.send(f"เกิดข้อผิดพลาด: {e}")
         print(f"[ERROR IN TEST COMMAND]: {e}")
