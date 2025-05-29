@@ -121,12 +121,12 @@ class SingleChapterSelect(discord.ui.Select):
             discord.SelectOption(label=f"ตอนที่ {i}", value=str(i))
             for i in range(start, end + 1)
         ]
-        super().__init__(placeholder="เลือกตอนในช่วงนี้...", options=options)
+        super().__init__(placeholder="เลือกตอนที่จะอ่าน", options=options)
 
     async def callback(self, interaction: discord.Interaction):
         chapter = int(self.values[0])
         await interaction.response.send_message(
-            f"กำลังโหลด {self.title} ตอนที่ {chapter}...",
+            f"กำลังโหลด {self.title}",
             view=ReaderView(
                 user=self.user,
                 title=self.title,
